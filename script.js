@@ -25,8 +25,8 @@ d3.csv("800KY.csv", function(d) {
   if (error) throw error;
 
   //x.domain(d3.extent(data, function(d) { return d.date; }));
-  x.domain([-796562,2000]);
-  y.domain(d3.extent(data, function(d) { return d.close; }));
+  x.domain([-800000,2016]);
+  y.domain([0,400]);
 
   g.append("g")
       .attr("class", "axis axis--x")
