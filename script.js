@@ -1,68 +1,81 @@
+var data = [
+  {xvalue: 1, yvalue: 10},
+  {xvalue: 2, yvalue: 20},
+  {xvalue: 3, yvalue: 15},
+  {xvalue: 4, yvalue: 11},
+  {xvalue: 5, yvalue: 14},
+  {xvalue: 6, yvalue: 23},
+  {xvalue: 7, yvalue: 9}
+];
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = svg.attr("width") - margin.left - margin.right,
-    height = svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    padding = 0;
+var valueline = d3.line()
+    .x(function(d) { return x(d.xvalue); })
+    .y(function(d) { return y(d.yvalue); });
 
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+  
 
-
-var x = d3.scaleLinear()
-    .range([0,width]);
-
-var y = d3.scaleLinear()
-    .range([height, 0]);
-
-var line = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
-
-d3.csv("800KY.csv", function(d) {
-  d.date = d.date;
-  d.close = d.close;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
-
-  //x.domain(d3.extent(data, function(d) { return d.date; }));
-  x.domain([-800000,2016]);
-  y.domain([0,400]);
-
-  g.append("g")
-      .attr("class", "axis axis--x")
-  	  .attr("transform", "translate(0," + height  + ")")
-      .call(d3.axisBottom(x));
-
-  g.append("g")
-      .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y))
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
 
 
-  g.append("path")
-      .datum(data)
-      .attr("class", "line")
-      .attr("d", line);
 
-  g.selectAll(".xaxis text")  // select all the text elements for the xaxis
-            .attr("transform", function(d) {
-               return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
-           });      
+// Set the ranges
+var x = d3.scaleLinear().range([0,width]);
+var y = d3.scaleLinear().range([height, 0]);
 
-  g.append("text")
-      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-      .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-      .text("Value");
-  g.append("text")
-      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-      .attr("transform", "translate("+ (width/2) +","+(height-(padding/3))+")")  // centre below axis
-      .text("Date");
+// set the domain
+x.domain([0,7]);
+y.domain([0,100]);
 
-  g.append('path')
-    .on('mouseover', function(d){
-      d3.select(this)
-        .style('opacity', .5)
-    })
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style('background','grey')
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
 
-});
 
+    // Add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Add the y Axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    // Add the valueline path.
+    svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", valueline);
+
+    // Add the scatterplot
+    svg.selectAll("dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 5)
+        .attr("cx", function(d) { return x(d.xvalue); })
+        .attr("cy", function(d) { return y(d.yvalue); })
+        .on("mouseover", function(d) {
+          div.transition()
+            .duration(200)
+            .style("opacity", .9);
+          div.html(d.yvalue)
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+          div.transition()
+           .duration(500)
+           .style("opacity", 0);
+       });
+      
