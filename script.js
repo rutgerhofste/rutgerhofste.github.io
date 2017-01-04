@@ -6,10 +6,8 @@ var svg = d3.select("svg"),
     height = svg.attr("height") - margin.top - margin.bottom,
     height2 = svg.attr("height") - margin2.top - margin2.bottom;
 
-var parseDate = d3.timeParse("%Y");
-
-var x = d3.scaleTime().range([0, width]),
-    x2 = d3.scaleTime().range([0, width]),
+var x = d3.scaleLinear().range([0, width]),
+    x2 = d3.scaleLinear().range([0, width]),
     y = d3.scaleLinear().range([height, 0]),
     y2 = d3.scaleLinear().range([height2, 0]);
 
@@ -56,8 +54,11 @@ var context = svg.append("g")
 d3.csv("800KY.csv", type, function(error, data) {
   if (error) throw error;
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0, d3.max(data, function(d) { return d.price; })]);
+  //x.domain(d3.extent(data, function(d) { return d.date; }));
+  //y.domain([0, d3.max(data, function(d) { return d.price; })]);
+  x.domain([-800000, 2000]);
+  y.domain([150 300]);
+
   x2.domain(x.domain());
   y2.domain(y.domain());
 
@@ -119,8 +120,8 @@ function zoomed() {
 }
 
 function type(d) {
-  d.date = parseDate(d.date);
-  d.price = +d.price;
+  d.date = d.date;
+  d.price = d.price;
   return d;
 }
 
