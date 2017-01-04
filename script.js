@@ -108,6 +108,16 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .attr("height", height)
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(zoom);
+
+  // Add the scatterplot
+  svg.selectAll("dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("r", 10)
+      .attr("cx", 1)
+      .attr("cy", 1)
+  ;    
+
 });
 
 function brushed() {
