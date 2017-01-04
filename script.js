@@ -43,3 +43,8 @@ d3.csv("800KY.csv", function(d) {
       .attr("class", "line")
       .attr("d", line);
 });
+
+ vis.append("g")
+  .attr("class", "xaxis axis")  // two classes, one for css formatting, one for selection below
+  .attr("transform", "translate(0," + (height - padding) + ")")
+  .call(xAxis); 
