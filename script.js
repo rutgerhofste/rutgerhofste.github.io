@@ -1,4 +1,4 @@
-var data = [
+var data2 = [
   {xvalue: 1, yvalue: 200},
   {xvalue: 2, yvalue: 280},
   {xvalue: 3, yvalue: 15},
@@ -111,7 +111,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
 });
 
 svg.selectAll("dot")
-    .data(data)
+    .data(data2)
   .enter().append("circle")
     .attr("fill", "red")
     .attr("r", 10)
