@@ -6,7 +6,7 @@ var svg = d3.select("svg"),
     height = svg.attr("height") - margin.top - margin.bottom,
     height2 = svg.attr("height") - margin2.top - margin2.bottom;
 
-var parseDate = d3.timeParse("%b %Y");
+var parseDate = d3.timeParse("%Y");
 
 var x = d3.scaleTime().range([0, width]),
     x2 = d3.scaleTime().range([0, width]),
@@ -53,7 +53,7 @@ var context = svg.append("g")
     .attr("class", "context")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-d3.csv("sp500.csv", type, function(error, data) {
+d3.csv("800KY.csv", type, function(error, data) {
   if (error) throw error;
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
