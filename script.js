@@ -110,20 +110,6 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .call(zoom);
 });
 
-svg.selectAll("dot")
-    .data(data2)
-  .enter().append("circle")
-    .attr("fill", "red")
-    .attr("r", 10)
-    .attr("cx", 210)
-    .attr("cy", 200)
-    //.on("mouseover", handleMouseOver)
-    //.on("mouseout",handleMouseOut)
-    //.on("click",handleMouseClick)
-    ;
-
-
-
 function brushed() {
   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
   var s = d3.event.selection || x2.range();
