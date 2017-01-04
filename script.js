@@ -56,6 +56,11 @@ d3.csv("800KY.csv", function(d) {
   g.append("text")
       .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
       .attr("transform", "translate("+ (width/2) +","+(height-(padding/3))+")")  // centre below axis
-      .text("Date");        
+      .text("Date");
+  g.on('mouseover', function(d){
+    d3.select(this)
+      .style('opacity', .5)
+  })
+
 });
 
