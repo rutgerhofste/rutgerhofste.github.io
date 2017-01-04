@@ -114,7 +114,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .data(data)
     .enter().append("circle")
       .attr("r", 10)
-      .attr("cx", .x(function(d) { return x(d.date); }))
+      .attr("cx", function(d) { return x(d.date); })
       .attr("cy", 100)
   ;    
 
