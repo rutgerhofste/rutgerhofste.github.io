@@ -43,6 +43,11 @@ d3.csv("800KY.csv", function(d) {
       .attr("class", "line")
       .attr("d", line);
 
+  g.selectAll(".xaxis text")  // select all the text elements for the xaxis
+            .attr("transform", function(d) {
+               return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+           });      
+
   g.append("text")
       .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
       .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
