@@ -42,9 +42,14 @@ d3.csv("800KY.csv", function(d) {
       .datum(data)
       .attr("class", "line")
       .attr("d", line);
+
+  g.append("text")
+      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+      .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+      .text("Value");
+  g.append("text")
+      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+      .attr("transform", "translate("+ (width/2) +","+(height-(padding/3))+")")  // centre below axis
+      .text("Date");        
 });
 
- vis.append("g")
-  .attr("class", "xaxis axis")  // two classes, one for css formatting, one for selection below
-  .attr("transform", "translate(0," + (height - padding) + ")")
-  .call(xAxis); 
