@@ -1,6 +1,6 @@
 var data = [
-  {xvalue: 1, yvalue: 10},
-  {xvalue: 2, yvalue: 20},
+  {xvalue: 1, yvalue: 200},
+  {xvalue: 2, yvalue: 280},
   {xvalue: 3, yvalue: 15},
   {xvalue: 4, yvalue: 11},
   {xvalue: 5, yvalue: 14},
@@ -113,7 +113,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
 svg.selectAll("dot")
     .data(data)
   .enter().append("circle")
-    .attr("r", 10)
+    .attr("r", 1000)
     .attr("cx", function(d) { return x(d.xvalue); })
     .attr("cy", function(d) { return y(d.yvalue); })
     //.on("mouseover", handleMouseOver)
