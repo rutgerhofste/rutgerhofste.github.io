@@ -120,8 +120,8 @@ function zoomed() {
 }
 
 function type(d) {
-  d.date = d.date;
-  d.price = d.price;
+  d.date = d.datum;
+  d.price = d.waarde;
   return d;
 }
 
