@@ -1,3 +1,14 @@
+var data = [
+  {xvalue: 1, yvalue: 10},
+  {xvalue: 2, yvalue: 20},
+  {xvalue: 3, yvalue: 15},
+  {xvalue: 4, yvalue: 11},
+  {xvalue: 5, yvalue: 14},
+  {xvalue: 6, yvalue: 23},
+  {xvalue: 7, yvalue: 9}
+];
+
+
 
 var svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 110, left: 40},
@@ -99,6 +110,19 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .call(zoom);
 });
 
+svg.selectAll("dot")
+    .data(data)
+  .enter().append("circle")
+    .attr("r", 10)
+    .attr("cx", function(d) { return x(d.xvalue); })
+    .attr("cy", function(d) { return y(d.yvalue); })
+    //.on("mouseover", handleMouseOver)
+    //.on("mouseout",handleMouseOut)
+    //.on("click",handleMouseClick)
+    ;
+
+
+
 function brushed() {
   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
   var s = d3.event.selection || x2.range();
@@ -122,6 +146,7 @@ function zoomed() {
 function type(d) {
   d.date = d.datum;
   d.price = d.waarde;
+  d.bron = d.bron;
   return d;
 }
 
