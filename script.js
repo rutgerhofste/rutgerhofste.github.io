@@ -51,7 +51,7 @@ var context = svg.append("g")
     .attr("class", "context")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-d3.csv("800KY.csv", type, function(error, data) {
+d3.csv("800KYV2.csv", type, function(error, data) {
   if (error) throw error;
 
   //x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -121,7 +121,7 @@ function zoomed() {
 
 function type(d) {
   d.date = d.date;
-  d.price = d.price;
+  d.price = d.value;
   return d;
 }
 
