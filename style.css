@@ -16,6 +16,10 @@
   clip-path: url(#clip);
 }
 
+.dot {
+	clip-path: url(#clip);
+}
+
 .overlay {
   fill: none;
   pointer-events: all;
@@ -28,3 +32,5 @@
   stroke-width: 2px;
   stroke-dasharray: 3,3;
 }
+
+

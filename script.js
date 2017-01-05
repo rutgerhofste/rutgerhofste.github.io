@@ -56,7 +56,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
 
   //x.domain(d3.extent(data, function(d) { return d.date; }));
   //y.domain([0, d3.max(data, function(d) { return d.price; })]);
-  x.domain([-800000, 21000]);
+  x.domain([-800000, 2016]);
   y.domain([150, 400]);
 
   x2.domain(x.domain());
@@ -66,22 +66,31 @@ d3.csv("800KYV2.csv", type, function(error, data) {
   focus.append("path")
     .datum(data)
     .attr("class", "area")
-    .attr("d", area);
+    .attr("d", area)
+    .style("opacity", 1);
 
   focus.append("path")
     .datum(data)
     .attr("class","line")
-    .attr("d",line);
+    .attr("d",line)
+    .style("opacity", 0.1);
 
 // draw dots
   focus.selectAll(".dot")
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 2)
       .attr("cx", function(d) { return x(d.date)})
       .attr("cy", function(d) { return y(d.price)})
-      .style("fill","red");
+      .attr("fill", function(d){
+        if(d.bron === "EPICA Dome C"){
+          seriesColor = "blue";
+        } else {
+          seriesColor = "red"
+        }
+        return seriesColor})
+      .style("opacity", 1);
 
 
   focus.append("g")
@@ -123,10 +132,9 @@ function brushed() {
   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
   var s = d3.event.selection || x2.range();
   x.domain(s.map(x2.invert, x2));
-  d3.selectAll(".dot").attr("fill","blue");
   focus.select(".area").attr("d", area);
   focus.select(".line").attr("d", line); // seld added line of code
-  focus.selectAll(".dot").attr("transform", d3.event.transform);
+  focus.selectAll(".dot").attr("cx", function(d) { return x(d.date); });
   focus.select(".axis--x").call(xAxis);
   svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
       .scale(width / (s[1] - s[0]))
@@ -140,7 +148,7 @@ function zoomed() {
   x.domain(t.rescaleX(x2).domain());
   focus.select(".area").attr("d", area);
   focus.select(".line").attr("d", line); // self added line of code
-  focus.selectAll(".dot").attr("transform", d3.event.transform); // seld added line of code
+  focus.selectAll(".dot").attr("cx", function(d) { return x(d.date); }); // seld added line of code
   focus.select(".axis--x").call(xAxis);
   context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
   
@@ -157,7 +165,6 @@ function type(d) {
 var line = d3.line()
   .x(function(d) { return x(d.datum); })
   .y(function(d) { return y(d.waarde); });
-
 
 
 
