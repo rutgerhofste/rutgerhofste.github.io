@@ -87,11 +87,11 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .attr("cy", function(d) { return y(d.price)})
       .attr("fill", function(d){
         if(d.bron == 1){
-          seriesColor = "#2666AF";
+          seriesColor = "#FEDD38""#2666AF";
         } else if (d.bron ==2) {
           seriesColor = "#DB553F";
         } else if (d.bron ==3) {
-          seriesColor = "#FEDD38";
+          seriesColor = "#2666AF";
         }
         return seriesColor})
       .style("opacity", 1);
