@@ -57,7 +57,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
   //x.domain(d3.extent(data, function(d) { return d.date; }));
   //y.domain([0, d3.max(data, function(d) { return d.price; })]);
   x.domain([-800000, 2016]);
-  y.domain([150, 400]);
+  y.domain([150, 410]);
 
   x2.domain(x.domain());
   y2.domain(y.domain());
@@ -84,10 +84,12 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .attr("cx", function(d) { return x(d.date)})
       .attr("cy", function(d) { return y(d.price)})
       .attr("fill", function(d){
-        if(d.bron === "EPICA Dome C"){
-          seriesColor = "blue";
-        } else {
-          seriesColor = "red"
+        if(d.bron == 1){
+          seriesColor = "#2666AF";
+        } else if (d.bron ==2) {
+          seriesColor = "#DB553F";
+        } else if (d.bron ==3) {
+          seriesColor = "#FEDD38";
         }
         return seriesColor})
       .style("opacity", 1);
