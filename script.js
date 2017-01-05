@@ -1,7 +1,7 @@
 
 var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 110, left: 40},
-    margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+    margin = {top: 20, right: 20, bottom: 110, left: 60},
+    margin2 = {top: 430, right: 20, bottom: 30, left: 60},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom,
     height2 = svg.attr("height") - margin2.top - margin2.bottom;
@@ -69,11 +69,13 @@ d3.csv("800KYV2.csv", type, function(error, data) {
     .attr("d", area)
     .style("opacity", 1);
 
+/*
   focus.append("path")
     .datum(data)
     .attr("class","line")
     .attr("d",line)
     .style("opacity", 0.1);
+*/
 
 // draw dots
   focus.selectAll(".dot")
@@ -100,6 +102,14 @@ d3.csv("800KYV2.csv", type, function(error, data) {
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis);
 
+  // now add titles to the axes
+  focus.append("text")
+      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+      .attr("transform", "translate("+ (-40) +","+(200)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+      .text("CO2 Concentration [PPMV]")
+      .attr("font","Arial")
+      .attr("font-size",12);
+
   focus.append("g")
     .attr("class", "axis axis--y")
     .call(yAxis);
@@ -113,6 +123,13 @@ d3.csv("800KYV2.csv", type, function(error, data) {
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height2 + ")")
     .call(xAxis2);
+
+  context.append("text")
+    .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+    .attr("transform", "translate("+ (width/2) +","+(height2+margin2.bottom)+")")  // centre below axis
+    .text("Year")
+    .attr("font","Arial")
+    .attr("font-size",12);
 
   context.append("g")
     .attr("class", "brush")

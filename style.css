@@ -1,3 +1,8 @@
+* {
+ font-family: Arial;
+}
+
+
 .area {
   fill: steelblue;
   clip-path: url(#clip);
@@ -12,7 +17,7 @@
 .line {
   fill: none;
   stroke: #6F257F;
-  stroke-width: 1px;
+  stroke-width: 0px;
   clip-path: url(#clip);
 }
 
@@ -25,12 +30,13 @@
   pointer-events: all;
 }
 
+h1 {
+	font-size: 12px;
+};
+
+
 
   
-.hover-line {
-  stroke: #6F257F;
-  stroke-width: 2px;
-  stroke-dasharray: 3,3;
-}
+
 
 
