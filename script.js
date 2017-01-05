@@ -56,7 +56,7 @@ d3.csv("800KYV2.csv", type, function(error, data) {
 
   //x.domain(d3.extent(data, function(d) { return d.date; }));
   //y.domain([0, d3.max(data, function(d) { return d.price; })]);
-  x.domain([-800000, 2016]);
+  x.domain([-796562, 2015]);
   y.domain([150, 410]);
 
   x2.domain(x.domain());
@@ -87,9 +87,9 @@ d3.csv("800KYV2.csv", type, function(error, data) {
       .attr("cy", function(d) { return y(d.price)})
       .attr("fill", function(d){
         if(d.bron == 1){
-          seriesColor = "#FEDD38""#2666AF";
-        } else if (d.bron ==2) {
           seriesColor = "#DB553F";
+        } else if (d.bron ==2) {
+          seriesColor = "#FEDD38";
         } else if (d.bron ==3) {
           seriesColor = "#2666AF";
         }
@@ -164,14 +164,14 @@ function brushed() {
 function zoomed() {
   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
   var t = d3.event.transform;
+  console.log(t);
   x.domain(t.rescaleX(x2).domain());
   focus.select(".area").attr("d", area);
   focus.select(".line").attr("d", line); // self added line of code
   focus.selectAll(".dot").attr("cx", function(d) { return x(d.date); }); // seld added line of code
   focus.select(".axis--x").call(xAxis);
-  context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
-  
-}
+  context.select(".brush").call(brush.move, x.range().map(t.invertX, t))
+};
 
 function type(d) {
   d.date = d.datum;
@@ -184,7 +184,6 @@ function type(d) {
 var line = d3.line()
   .x(function(d) { return x(d.datum); })
   .y(function(d) { return y(d.waarde); });
-
 
 
 
