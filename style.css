@@ -21,7 +21,8 @@
   clip-path: url(#clip);
 }
 
-.dot {
+.rondje {
+  fill: steelblue;
 	clip-path: url(#clip);
 }
 
